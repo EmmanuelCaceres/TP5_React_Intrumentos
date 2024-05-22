@@ -1,14 +1,16 @@
 import Categoria from "./Categoria";
+import PedidoDetalle from "./PedidoDetalle";
 
 export default class Instrumento{
-    id?:Number=0;
-    instrumento:String='';
-    marca:String='';
-    modelo:String='';
-    imagen:String='';
-    precio:String='';
-    costoEnvio:String='';
-    cantidadVendida:String='';
-    descripcion:String='';
+    id?:number=0;
+    instrumento:string='';
+    marca:string='';
+    modelo:string='';
+    imagen:string='';
+    precio:string='';
+    costoEnvio:string='';
+    cantidadVendida:string='';
+    descripcion:string='';
     categoria?:Categoria;
+
 }

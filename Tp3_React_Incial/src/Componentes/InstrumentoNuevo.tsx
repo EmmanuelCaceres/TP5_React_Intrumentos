@@ -18,7 +18,7 @@ export default function InstrumentoNuevo(){
         const result = await getAll<Categoria[]>("http://localhost:8080/categorias")
         setCategoria(result);
     }
-    const getInstrumento =async (idInstrumento:number) =>{
+    const getInstrumento = async (idInstrumento:number) =>{
         const result = await getInstrumentoById(idInstrumento);
         console.log(result);
         setInstrumento(result);

@@ -1,8 +1,8 @@
 import Instrumento from '../Entities/Intrumento';
 import { deleteData } from '../Functions/FunctionsApi';
-import NavBar from './NavBar';
 import '../index.css'
-  
+import { useCarrito } from '../context/useCarrito';
+
   interface Props {
     info: Instrumento; 
     key: Number; 
@@ -10,7 +10,9 @@ import '../index.css'
 
   const Card: React.FC<Props> = (props:Props) => {
 
-    const deletePlato = async (idIngrediente:Number) => {
+    const {addCarrito,removeItemCarrito} = useCarrito()
+
+    const deleteInstrumento = async (idIngrediente:Number) => {
         await deleteData(`http://localhost:8080/instrumento/delete/${idIngrediente}`);
         window.location.reload();
       }
@@ -22,7 +24,6 @@ import '../index.css'
     const rutaImagen = "src/assets/img/"+props.info.imagen;
     return(
         <>
-            
             <div className='cardContainer'>
                 <div className='flex'>
                     <div>
@@ -44,7 +45,9 @@ import '../index.css'
                     Detalle
                 </a>
                 <a className="btn btn-info" style={{ marginBottom:10 }} href={`instrumento/` + props.info.id}>Modificar</a>
-                <a className="btn btn-danger" style={{ marginBottom:10 }} onClick={(e) => deletePlato(props.info.id)}>Eliminar</a>
+                <a className="btn btn-danger" style={{ marginBottom:10 }} onClick={(e) => deleteInstrumento(props.info.id)}>Eliminar</a>
+                <button className="btn btn-info" onClick={()=>addCarrito(props.info)}>Añadir a carrito</button>
+                <button className="btn btn-info" onClick={()=>removeItemCarrito(props.info)}>Sacar de carrito</button>
             </div>
         </>
     );

@@ -20,7 +20,7 @@ function InstrumentoDetails(){
   
     return(
       <>
-              <NavBar/>
+        <NavBar/>
         <div className='detalleContainer'>
             <div className='mainDetalle'>
                 <img width={240} height={240} src={`../src/assets/img/${instrumento?.imagen}`} alt={String(instrumento?.id)} />
@@ -37,6 +37,5 @@ function InstrumentoDetails(){
       </>
     )
 }
-
 
 export default InstrumentoDetails;

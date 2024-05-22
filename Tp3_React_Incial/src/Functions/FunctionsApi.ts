@@ -94,3 +94,23 @@ export async function getInstrumentoById(id:Number){
       console.error(error); // Imprime el error en la consola
     }
   }
+
+  export async function PostDetalleData<T>(path: string, data: T[]) {
+    console.log(data);
+    try {
+      const response = await fetch(`${path}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: 'cors',
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json(); // Retorna los datos en formato JSON
+    } catch (error) {
+      console.error(error); // Imprime el error en la consola
+    }
+  }
