@@ -3,6 +3,7 @@
 import { useCarrito } from "../context/useCarrito"
 import PedidoDetalle from "../Entities/PedidoDetalle"
 import { PostDetalleData } from "../Functions/FunctionsApi"
+import CheckOutMP from "./CheckOutMP"
 
  function ItemCarrito(props: { item: PedidoDetalle }){
     return(
@@ -26,7 +27,7 @@ import { PostDetalleData } from "../Functions/FunctionsApi"
 }
 
 export default function Carrito(){
-    const { cart } = useCarrito()
+    const { cart, totalPedido } = useCarrito()
 
     const handleCheckout = async () => {
         const result = await PostDetalleData<PedidoDetalle>("http://localhost:8080/pedidoDetalle/save",cart);
@@ -39,7 +40,9 @@ export default function Carrito(){
             {cart.map((itemCart: PedidoDetalle) => (
                 <ItemCarrito key={itemCart.instrumento.id} item={itemCart}/>
             ))}
+            <p>{totalPedido}</p>
             <button onClick={handleCheckout}>Enviar datos</button>
+            <CheckOutMP montoTotal={totalPedido}></CheckOutMP>
         </div>
     )
 }

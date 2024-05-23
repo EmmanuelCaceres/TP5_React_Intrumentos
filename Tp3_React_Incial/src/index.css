@@ -150,3 +150,19 @@ grid-row: 2/3;
 .titleInformacion{
   text-align: start;
 }
+
+.btMercadoPago{
+  background-color: #535bf2;
+}
+
+.divVisible{
+  visibility:visible;
+}
+
+.divInvisible{
+  visibility:hidden;
+}
+
+.separador{
+  width: 400px;
+}

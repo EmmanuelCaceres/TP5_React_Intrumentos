@@ -46,7 +46,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
                     detalle.pedido.totalPedido += Number(product.precio)
                 }
             });
-            setCart(cartClonado)
+            await setCart(cartClonado)
         } 
         else {
             console.log("NO EXISTE");
@@ -63,10 +63,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
             await setCart(prevCart => [...prevCart, nuevoDetalle])
         }   
 
-        calcularTotalCarrito();
-        console.log(totalPedido)
-        console.log(cart)
-
+        await calcularTotalCarrito();
 
     };
 
@@ -98,7 +95,6 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
                 }
             });
             setCart(cartClonado)
-            console.log(cartClonado)
             // if( > 1){
             //     product.cantidad -= 1
             //     const cartClonado = await structuredClone(cart.filter(item => item.id !== product.id))
@@ -117,6 +113,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
     // }
 
     const calcularTotalCarrito = async () => {
+        console.log(cart);
         let total:number = 0;
         cart.forEach(async (element:PedidoDetalle) => {
             total += Number(element.instrumento?.precio) * element.cantidad;
@@ -125,7 +122,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
     }
 
     return (
-    <CartContext.Provider value={{ cart, addCarrito, removeItemCarrito }}>
+    <CartContext.Provider value={{ cart, addCarrito, removeItemCarrito, totalPedido }}>
       {children}
     </CartContext.Provider>
     );

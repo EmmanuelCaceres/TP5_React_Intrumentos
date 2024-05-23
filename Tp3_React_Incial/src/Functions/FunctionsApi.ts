@@ -1,5 +1,7 @@
 
 import Instrumento from "../Entities/Intrumento";
+import PagoMP from "../Entities/PagoMP";
+import PreferenceMP from "../Entities/PreferenceMP";
 //Traemos todos los instrumentos
 
 export async function getAll<T>(path:String) : Promise<T>{
@@ -114,3 +116,16 @@ export async function getInstrumentoById(id:Number){
       console.error(error); // Imprime el error en la consola
     }
   }
+
+  export async function createPreferenceMP(pagoMP?:PagoMP){
+    let urlServer = 'http://localhost:8080/create_preference_mp';
+    const response = await fetch(urlServer, {
+	  method: "POST",
+	  body: JSON.stringify(pagoMP),
+	  headers: {
+		"Content-Type": 'application/json'
+	  },
+    mode: 'cors'
+	});
+    return await response.json() as PreferenceMP;   
+}   
