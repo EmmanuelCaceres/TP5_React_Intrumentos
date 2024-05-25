@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import PreferenceMP from '../Entities/PreferenceMP';
 import { createPreferenceMP } from '../Functions/FunctionsApi';
@@ -19,12 +19,16 @@ export default function CheckOutMP({montoTotal=0}){
         }
       
     }
-                  // TEST-eff051e2-6610-48a8-952f-4423523253c4
-    initMercadoPago('TEST-eff051e2-6610-48a8-952f-4423523253c4',{ locale: 'es-AR' });
+
+    useEffect(() => {
+                      // TEST-eff051e2-6610-48a8-952f-4423523253c4
+        initMercadoPago('TEST-eff051e2-6610-48a8-952f-4423523253c4',{ locale: 'es-AR' });
+      }, []);
+    
 
     return(
         <div>
-            <button onClick={getPreferenceMP} className='btMercadoPago'>COMPRAR con <br></br> Mercado Pago</button>
+            <button onClick={getPreferenceMP} className='btMercadoPago'>Comprar</button>
             <div className={idPreference ? 'divVisible':'divInvisible'}>
                 <Wallet initialization={{ preferenceId: idPreference, redirectMode:"blank" }} customization={{ texts:{ valueProp: 'smart_option'}}} />
             </div>

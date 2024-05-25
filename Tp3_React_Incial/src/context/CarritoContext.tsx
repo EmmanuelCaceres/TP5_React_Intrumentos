@@ -29,9 +29,9 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
     const[cart, setCart] = useState<PedidoDetalle[]>([]);
     const[totalPedido, setTotalPedido] = useState<number>(0);
 
-    const addCarrito = async (product: Instrumento) => {
+    const addCarrito = (product: Instrumento) => {
         let existe:boolean = false
-        cart.forEach(async (cartItem: PedidoDetalle) => {
+        cart.forEach((cartItem: PedidoDetalle) => {
             if(cartItem.instrumento?.id === product.id){
                 existe = true
                 return existe
@@ -46,7 +46,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
                     detalle.pedido.totalPedido += Number(product.precio)
                 }
             });
-            await setCart(cartClonado)
+            setCart(cartClonado)
         } 
         else {
             console.log("NO EXISTE");
@@ -60,10 +60,10 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
                     totalPedido:Number(product.precio)
                 }
             };
-            await setCart(prevCart => [...prevCart, nuevoDetalle])
+            setCart(prevCart => [...prevCart, nuevoDetalle])
         }   
 
-        await calcularTotalCarrito();
+        calcularTotalCarrito();
 
     };
 
@@ -71,12 +71,9 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
     //     await setCart(prevCart => prevCart.filter(item => item.id !== product.id))
     // };
 
-    const removeItemCarrito = async (product: Instrumento) => {
-        //const objetoBuscado = cart.find((objeto:Plato) => objeto.id === product.id);
-        //const platoIndice = cart.findIndex((objeto:Plato) => objeto.id === product.id)
-        //si el producto ya esta en el carrito
+    const removeItemCarrito = (product: Instrumento) => {
         let existe:boolean = false
-        cart.forEach(async (cartItem: PedidoDetalle) => {
+        cart.forEach((cartItem: PedidoDetalle) => {
             if(cartItem.instrumento?.id === product.id){
                 existe = true
             }
@@ -87,22 +84,18 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
             const cartClonado = JSON.parse(JSON.stringify(cart));
             cartClonado.forEach((detalle: PedidoDetalle, index: number) => {
                 if (detalle.cantidad >1) {
-                    detalle.cantidad -= 1
-                    detalle.pedido.totalPedido -= Number(product.precio)
+                    if(detalle.instrumento?.id === product.id){
+                        detalle.cantidad -= 1
+                        detalle.pedido.totalPedido -= Number(product.precio)
+                    }
                 }else{
-                    cartClonado.splice(index, 1);
-                    detalle.pedido.totalPedido -= Number(product.precio);
+                    if(detalle.instrumento?.id === product.id){
+                        cartClonado.splice(index, 1);
+                        detalle.pedido.totalPedido -= Number(product.precio);
+                    }
                 }
             });
             setCart(cartClonado)
-            // if( > 1){
-            //     product.cantidad -= 1
-            //     const cartClonado = await structuredClone(cart.filter(item => item.id !== product.id))
-            //     await cartClonado.push(product)
-            //     setCart(cartClonado)
-            // }else{
-            //     await setCart(prevCart => prevCart.filter(item => item.id !== product.id))
-            // }
         }   
 
         calcularTotalCarrito();
@@ -112,13 +105,15 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
     //     setCart([])
     // }
 
-    const calcularTotalCarrito = async () => {
+    const calcularTotalCarrito = () => {
         console.log(cart);
-        let total:number = 0;
-        cart.forEach(async (element:PedidoDetalle) => {
-            total += Number(element.instrumento?.precio) * element.cantidad;
-        });
-        await setTotalPedido(total);
+        // let total:number = 0;
+        const nuevoTotal = cart.reduce((sum, detalle) => sum + detalle.pedido.totalPedido, 0);
+        setTotalPedido(nuevoTotal);
+        // cart.forEach((element:PedidoDetalle) => {
+        //     total += Number(element.pedido.totalPedido)
+        // });
+        // await setTotalPedido(total);
     }
 
     return (

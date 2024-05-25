@@ -41,7 +41,7 @@ export default function Carrito(){
                 <ItemCarrito key={itemCart.instrumento.id} item={itemCart}/>
             ))}
             <p>{totalPedido}</p>
-            <button onClick={handleCheckout}>Enviar datos</button>
+            <button className="btn btn-success mb-3"  onClick={handleCheckout}>Hacer pedido</button>
             <CheckOutMP montoTotal={totalPedido}></CheckOutMP>
         </div>
     )

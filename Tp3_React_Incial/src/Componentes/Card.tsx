@@ -44,10 +44,17 @@ import { useCarrito } from '../context/useCarrito';
                 <a href={`instrumentos/${props.info.id}`}>
                     Detalle
                 </a>
+                <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+                <div style={{display:"flex"}}>
                 <a className="btn btn-info" style={{ marginBottom:10 }} href={`instrumento/` + props.info.id}>Modificar</a>
                 <a className="btn btn-danger" style={{ marginBottom:10 }} onClick={(e) => deleteInstrumento(props.info.id)}>Eliminar</a>
+                </div>
+                <div style={{display:"flex"}}>
+
                 <button className="btn btn-info" onClick={()=>addCarrito(props.info)}>Añadir a carrito</button>
                 <button className="btn btn-info" onClick={()=>removeItemCarrito(props.info)}>Sacar de carrito</button>
+                </div>
+                </div>
             </div>
         </>
     );
