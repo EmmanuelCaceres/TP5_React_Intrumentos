@@ -28,7 +28,7 @@ export default function CheckOutMP({montoTotal=0}){
 
     return(
         <div>
-            <button onClick={getPreferenceMP} className='btMercadoPago'>Comprar</button>
+            <button onClick={getPreferenceMP} className='btMercadoPago'>Pagar</button>
             <div className={idPreference ? 'divVisible':'divInvisible'}>
                 <Wallet initialization={{ preferenceId: idPreference, redirectMode:"blank" }} customization={{ texts:{ valueProp: 'smart_option'}}} />
             </div>

@@ -31,7 +31,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
 
     const addCarrito = (product: Instrumento) => {
         let existe:boolean = false
-        cart.forEach((cartItem: PedidoDetalle) => {
+        cart.map((cartItem: PedidoDetalle) => {
             if(cartItem.instrumento?.id === product.id){
                 existe = true
                 return existe
@@ -40,7 +40,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
         console.log(product)
         if (existe) {
             const cartClonado = JSON.parse(JSON.stringify(cart));
-            cartClonado.forEach((detalle: PedidoDetalle) => {
+            cartClonado.map((detalle: PedidoDetalle) => {
                 if (detalle.instrumento?.id === product.id) {
                     detalle.cantidad += 1
                     detalle.pedido.totalPedido += Number(product.precio)
@@ -61,6 +61,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
                 }
             };
             setCart(prevCart => [...prevCart, nuevoDetalle])
+            console.log(cart)
         }   
 
         calcularTotalCarrito();
@@ -73,7 +74,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
 
     const removeItemCarrito = (product: Instrumento) => {
         let existe:boolean = false
-        cart.forEach((cartItem: PedidoDetalle) => {
+        cart.map((cartItem: PedidoDetalle) => {
             if(cartItem.instrumento?.id === product.id){
                 existe = true
             }
@@ -82,7 +83,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
         if (existe) {
             console.log("EXISTE");
             const cartClonado = JSON.parse(JSON.stringify(cart));
-            cartClonado.forEach((detalle: PedidoDetalle, index: number) => {
+            cartClonado.map((detalle: PedidoDetalle, index: number) => {
                 if (detalle.cantidad >1) {
                     if(detalle.instrumento?.id === product.id){
                         detalle.cantidad -= 1
@@ -106,7 +107,6 @@ export function CarritoContextProvider({ children }: { children: ReactNode }){
     // }
 
     const calcularTotalCarrito = () => {
-        console.log(cart);
         // let total:number = 0;
         const nuevoTotal = cart.reduce((sum, detalle) => sum + detalle.pedido.totalPedido, 0);
         setTotalPedido(nuevoTotal);

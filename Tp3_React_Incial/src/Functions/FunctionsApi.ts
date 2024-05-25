@@ -111,7 +111,8 @@ export async function getInstrumentoById(id:Number){
       if (!response.ok) {
         throw Error(response.statusText);
       }
-      return response.json(); // Retorna los datos en formato JSON
+      console.log(response)
+      return response.status; // Retorna los datos en formato JSON
     } catch (error) {
       console.error(error); // Imprime el error en la consola
     }

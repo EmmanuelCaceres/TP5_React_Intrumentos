@@ -1,5 +1,7 @@
 
 // import ItemCarrito from "./ItemCarrito"
+import { useState } from "react"
+// import { useParams } from "react-router-dom"
 import { useCarrito } from "../context/useCarrito"
 import PedidoDetalle from "../Entities/PedidoDetalle"
 import { PostDetalleData } from "../Functions/FunctionsApi"
@@ -28,10 +30,20 @@ import CheckOutMP from "./CheckOutMP"
 
 export default function Carrito(){
     const { cart, totalPedido } = useCarrito()
-
+    const [status,setStatus] = useState<number>(0);
+ 
     const handleCheckout = async () => {
-        const result = await PostDetalleData<PedidoDetalle>("http://localhost:8080/pedidoDetalle/save",cart);
-        console.log(result);
+        if(totalPedido == 0){
+            alert("Debe agregar un intrumento al carrito antes de realizar la compra")
+        }else{
+            const result = await PostDetalleData<PedidoDetalle>("http://localhost:8080/pedidoDetalle/save",cart);
+            await setStatus(result);
+            if(result==200){
+                alert("Su compra fue efectuada correctamente")
+            }else{
+                alert("No se pudo realizar su compra")
+            }
+        }
     }
     
     return(
@@ -42,7 +54,9 @@ export default function Carrito(){
             ))}
             <p>{totalPedido}</p>
             <button className="btn btn-success mb-3"  onClick={handleCheckout}>Hacer pedido</button>
-            <CheckOutMP montoTotal={totalPedido}></CheckOutMP>
+            <div className={status==200 ? 'divVisible':'divInvisible'}>
+                <CheckOutMP montoTotal={totalPedido}></CheckOutMP>
+            </div>
         </div>
     )
 }
