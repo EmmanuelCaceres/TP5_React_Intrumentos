@@ -1,5 +1,7 @@
 import Instrumento from '../Entities/Intrumento';
 import { deleteData } from '../Functions/FunctionsApi';
+import { useState } from 'react';
+import Usuario from '../Entities/Usuario';
 import '../index.css'
 import { useCarrito } from '../context/useCarrito';
 
@@ -9,6 +11,8 @@ import { useCarrito } from '../context/useCarrito';
   }
 
   const Card: React.FC<Props> = (props:Props) => {
+    const [jsonUsuario, setJSONUsuario] = useState<any>(localStorage.getItem('usuario'));
+    const usuarioLogueado: Usuario = JSON.parse(jsonUsuario) as Usuario;
 
     const {addCarrito,removeItemCarrito} = useCarrito()
 
@@ -45,10 +49,16 @@ import { useCarrito } from '../context/useCarrito';
                     Detalle
                 </a>
                 <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-                <div style={{display:"flex"}}>
-                <a className="btn btn-info" style={{ marginBottom:10 }} href={`instrumento/` + props.info.id}>Modificar</a>
-                <a className="btn btn-danger" style={{ marginBottom:10 }} onClick={(e) => deleteInstrumento(props.info.id)}>Eliminar</a>
-                </div>
+                    {
+                        (usuarioLogueado.rol == "Admin")
+                        ?
+                        <div style={{display:"flex"}}>
+                        <a className="btn btn-info" style={{ marginBottom:10 }} href={`instrumento/` + props.info.id}>Modificar</a>
+                        <a className="btn btn-danger" style={{ marginBottom:10 }} onClick={(e) => deleteInstrumento(props.info.id)}>Eliminar</a>
+                        </div>
+                        :<div></div>
+
+                    }
                 <div style={{display:"flex"}}>
 
                 <button className="btn btn-info" onClick={()=>addCarrito(props.info)}>Añadir a carrito</button>

@@ -2,6 +2,7 @@
 import Instrumento from "../Entities/Intrumento";
 import PagoMP from "../Entities/PagoMP";
 import PreferenceMP from "../Entities/PreferenceMP";
+import Usuario from "../Entities/Usuario";
 //Traemos todos los instrumentos
 
 export async function getAll<T>(path:String) : Promise<T>{
@@ -127,6 +128,46 @@ export async function getInstrumentoById(id:Number){
 		"Content-Type": 'application/json'
 	  },
     mode: 'cors'
-	});
+	  });
     return await response.json() as PreferenceMP;   
-}   
+  } 
+  
+  export async function registerUser<Usuario>(usuario:Usuario):Promise<Usuario>{
+    console.log(JSON.stringify(usuario))
+    let urlServer = 'http://localhost:8080/registro';
+    const response = await fetch(urlServer, {
+      method: "POST",
+      body: JSON.stringify(usuario),
+      headers: {
+      "Content-Type": 'application/json'
+      },
+      mode: 'cors'
+      });
+      // console.log(response.json())
+      return await response.json() as Usuario;   
+  }
+
+  export async function loginUser(usuario: Usuario): Promise<Usuario | string> {
+    let urlServer = 'http://localhost:8080/login';
+      const response = await fetch(urlServer, {
+        method: "POST",
+        body: JSON.stringify(usuario),
+        headers: {
+          "Content-Type": 'application/json'
+        },
+        mode: 'cors'
+      });
+  
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        if (errorResponse.error) {
+          console.log(errorResponse.error.valueOf())
+          return errorResponse.error as string;
+        } else {
+          return "Error desconocido.";
+        }
+      }
+  
+      return await response.json() as Usuario;
+  
+  }
