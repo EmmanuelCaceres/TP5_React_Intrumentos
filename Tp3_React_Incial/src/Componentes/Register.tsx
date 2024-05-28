@@ -3,8 +3,10 @@ import { useRef } from "react";
 import { registerUser } from "../Functions/FunctionsApi";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+    const navigate = useNavigate()
 
     const [user, setUser] = useState<Usuario>(new Usuario());
 
@@ -20,7 +22,15 @@ export default function Register() {
             form.classList.add('was-validated');
             try {
                 console.log(user)
-                await registerUser<Usuario>(user);
+                const result = await registerUser<Usuario>(user);
+                localStorage.setItem('usuario', JSON.stringify(result));
+            navigate('/instrumentos', {
+                replace: true,
+                state: {
+                    logged: true,
+                    usuario: user
+                },
+		    });
             } catch (error) {
                 console.error('Error registering user:', error);
             }
