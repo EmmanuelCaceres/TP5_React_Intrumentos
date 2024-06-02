@@ -11,6 +11,7 @@ import Register from './Componentes/Register.tsx';
 import Login from './Componentes/Login.tsx';
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Graficos from './Componentes/Graficos.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -40,6 +41,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <InstrumentoNuevo/>
           </RutaPrivada>
         }>
+        </Route>
+        <Route path='/graficos' element={<Graficos/>}>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -7,6 +7,4 @@ import java.util.List;
 
 public interface IPedidoDetalleService {
 
-    PedidoDetalle postData(PedidoDetalle pedidoDetalle);
-
 }

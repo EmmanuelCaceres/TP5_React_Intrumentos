@@ -1,5 +1,6 @@
 package TP3.backReact.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,11 +21,13 @@ public class PedidoDetalle implements Serializable {
     private Long id;
     private int cantidad;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_instrumento")
     private Instrumento instrumento;
 
-    @ManyToOne
-    @JoinColumn(name = "id_pedido")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="id_pedido")
+    @JsonBackReference
     private Pedido pedido;
+
 }

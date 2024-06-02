@@ -18,14 +18,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pedido implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date fechaActual;
     private Double totalPedido;
 
-    @OneToMany(mappedBy = "pedido")
-    @JsonIgnore
-    private List<PedidoDetalle> pedidoDetalle = new ArrayList<>();
-
+    @OneToMany(mappedBy = "pedido",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<PedidoDetalle> detallesPedido = new ArrayList<>();
 }

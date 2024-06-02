@@ -1,5 +1,6 @@
 package TP3.backReact.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -33,7 +34,8 @@ public class Instrumento implements Serializable {
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 
-    @OneToMany(mappedBy = "instrumento")
-    @JsonIgnore
-    private List<PedidoDetalle> pedidoDetalle = new ArrayList<>();
+    @OneToMany(mappedBy = "instrumento", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<PedidoDetalle> detallesPedido = new ArrayList<>();
+
 }

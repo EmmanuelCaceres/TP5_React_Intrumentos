@@ -1,6 +1,7 @@
 
 import Instrumento from "../Entities/Intrumento";
 import PagoMP from "../Entities/PagoMP";
+import Pedido from "../Entities/Pedido";
 import PreferenceMP from "../Entities/PreferenceMP";
 import Usuario from "../Entities/Usuario";
 //Traemos todos los instrumentos
@@ -98,7 +99,7 @@ export async function getInstrumentoById(id:Number){
     }
   }
 
-  export async function PostDetalleData<T>(path: string, data: T[]) {
+  export async function PostPedidoData<T>(path: string, data:T) {
     console.log(data);
     try {
       const response = await fetch(`${path}`, {
@@ -112,10 +113,9 @@ export async function getInstrumentoById(id:Number){
       if (!response.ok) {
         throw Error(response.statusText);
       }
-      console.log(response)
-      return response.status; // Retorna los datos en formato JSON
+      return response.json() as T; // Retorna los datos en formato JSON
     } catch (error) {
-      console.error(error); // Imprime el error en la consola
+      return Promise.reject(error); // Rechaza la promesa con el error
     }
   }
 
@@ -171,3 +171,17 @@ export async function getInstrumentoById(id:Number){
       return await response.json() as Usuario;
   
   }
+
+  export async function getDataPieChart(path:String){
+    // const url = "http://localhost:8080/instrumentos"
+    const response = await fetch(`${path}`,{
+        method:'GET',
+        headers:{
+            "Content-Type": 'application/json',
+            "Access-Control-Allow-Origin": '*'
+        },
+        mode: 'cors'
+    })
+    console.log(response)
+    return await response.json();
+}

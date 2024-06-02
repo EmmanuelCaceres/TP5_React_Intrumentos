@@ -8,9 +8,9 @@ html{
 }
 
 a {
-  font-weight: 500;
+  font-weight: 400;
   color: #646cff;
-  text-decoration: inherit;
+  text-decoration: none;
 }
 a:hover {
   color: #535bf2;
@@ -71,6 +71,7 @@ button:focus-visible {
   line-height: 21px;
 }
 .cardContainer{
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -165,4 +166,125 @@ grid-row: 2/3;
 
 .separador{
   width: 400px;
+}
+
+.formSave{
+  width: 40%;
+  padding: 16px;
+}
+
+.formSave label{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+.formSave label>p{
+  padding-left: 1rem;
+  margin-bottom: 0;
+}
+.formSave label>input{
+  width: 100%;
+  outline: none;
+  border: 1px solid #0F2D6B;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.buttonPrimary{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0F2D6B;
+  padding: 8px 10px;
+  color: white;
+  border-radius: 10px;
+}
+
+.buttonSecondary{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  gap: .5rem;
+  padding: 8px 10px;
+  color:  #3a67ff;
+  border: 1px solid #3a67ff;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.buttonAddCart{
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  gap: .5rem;
+  padding: 8px 10px;
+  color:  #6BBAA3;
+  border: 1px solid #6BBAA3;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.buttonMinusCart{
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  gap: .5rem;
+  padding: 8px 10px;
+  color:  #ef4444;
+  border: 1px solid #ef4444;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.buttonDeleteCart{
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  font-weight: 400;
+  align-items: center;
+  background-color: #ef4444;
+  gap: .5rem;
+  padding: 6px 12px;
+  color:  white;
+  border-radius: 0.375rem;
+  text-decoration: none;
+}
+.buttonDeleteCart:hover{
+  border: 1px solid rgba(239, 68, 68,.5);
+  background-color: rgba(239, 68, 68,.5);
+}
+
+.buttonPurchaseCart{
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  font-weight: 400;
+  align-items: center;
+  background-color: #6BBAA3;
+  gap: .5rem;
+  padding: 6px 12px;
+  color:  white;
+  border-radius: 0.375rem;
+  text-decoration: none;
+}
+.buttonPurchaseCart:hover{
+
+  border: 1px solid rgba(107, 186, 163,.5);
+  background-color: rgba(107, 186, 163,.5) ;
+}
+
+.itemCarrito{
+  border: 1px solid rgb(239 243 249);
+  box-shadow:9px 10px 13px -4px rgb(239 243 249);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem; 
 }

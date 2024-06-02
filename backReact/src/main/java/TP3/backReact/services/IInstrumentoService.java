@@ -2,6 +2,7 @@ package TP3.backReact.services;
 
 import TP3.backReact.entities.Instrumento;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public interface IInstrumentoService {
@@ -12,4 +13,6 @@ public interface IInstrumentoService {
     Instrumento putData(Integer id,Instrumento instrumento);
 
     boolean deleteData(Integer id) throws Exception;
+
+    public void imprimirPdf(Integer id, ByteArrayOutputStream outputStream);
 }

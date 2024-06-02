@@ -15,17 +15,4 @@ public class PedidoDetalleService implements IPedidoDetalleService{
     @Autowired
     public PedidoRepository pedidoRepository;
 
-    @Override
-    public PedidoDetalle postData(PedidoDetalle pedidoDetalle) {
-
-        Pedido pedido = pedidoDetalle.getPedido();
-        pedido = pedidoRepository.save(pedido);
-
-        // Asignamos el pedido persistido a cada detalle del pedido
-
-            pedidoDetalle.setPedido(pedido);
-
-
-        return pedidoDetalleRepository.save(pedidoDetalle);
-    }
 }

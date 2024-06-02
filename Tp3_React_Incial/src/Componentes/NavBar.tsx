@@ -38,6 +38,7 @@ const NavBar = () => {
               ? <Nav.Link href="/instrumento/0">Nuevo</Nav.Link>
               :<div></div>
             }
+            <Nav.Link href="/graficos">Gráficos</Nav.Link>
           </Nav>
           <Nav className="ms-auto">
           <li className="nav-item">
@@ -46,7 +47,7 @@ const NavBar = () => {
             </span>
           </li>
           <li className="nav-item">
-            <button onClick={cerrarSesion} className="btn btn-success" type="button">
+            <button onClick={cerrarSesion} className="buttonSecondary" type="button">
               Cerrar Sesión
             </button>
           </li>
