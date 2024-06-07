@@ -73,4 +73,8 @@ public class PedidoController {
     public  List<List<Object>> getPedidosByFecha(){
         return pedidoService.getcantidadPedido();
     }
+    @GetMapping("/pedidoPorMes")
+    public  List<List<Object>> getPedidosPorMesYAnio(@RequestParam("anio") Integer anio){
+        return pedidoService.getPedidosPorMesYAnio(anio);
+    }
 }

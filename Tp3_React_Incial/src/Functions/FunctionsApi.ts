@@ -185,3 +185,28 @@ export async function getInstrumentoById(id:Number){
     console.log(response)
     return await response.json();
 }
+  export async function getDataBarChart(path:String){
+    // const url = "http://localhost:8080/instrumentos"
+    const response = await fetch(`${path}`,{
+        method:'GET',
+        headers:{
+            "Content-Type": 'application/json',
+            "Access-Control-Allow-Origin": '*'
+        },
+        mode: 'cors'
+    })
+    console.log(response)
+    return await response.json();
+}
+
+export async function postImagen(path:string,file:FormData):Promise<string | null>{
+  const response = await fetch(`${path}`, {
+      method: "POST",
+      body: file,
+  });
+  if (response.ok) {
+    const uploadedFileName = await response.text(); // Parse the filename
+    return uploadedFileName;
+  }
+  return null;
+}

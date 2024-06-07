@@ -32,13 +32,13 @@ const Card: React.FC<Props> = (props: Props) => {
         ? "Costo de Envio interior Argentina: " + props.info.costoEnvio : "Envío gratis a todo el país";
     const costoClassName = props.info.costoEnvio != 'G'
         ? 'CostoInterior mt-4' : 'CostoGratis mt-4 ';
-    const rutaImagen = "src/assets/img/" + props.info.imagen;
+    // const rutaImagen = "src/assets/img/" + props.info.imagen;
     return (
         <>
             <div className='cardContainer'>
                 <div className='flex'>
                     <div>
-                        <img src={rutaImagen} />
+                        <img width={160} height={160} src={`http://localhost:8080/images/${props.info.imagen}`} />
                     </div>
                     <div className='cardBody'>
                         <h2 className='title'>{props.info.instrumento}</h2>

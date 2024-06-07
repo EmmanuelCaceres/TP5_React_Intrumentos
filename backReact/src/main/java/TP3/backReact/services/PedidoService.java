@@ -3,6 +3,7 @@ package TP3.backReact.services;
 import TP3.backReact.entities.Pedido;
 import TP3.backReact.entities.PedidoDetalle;
 import TP3.backReact.entities.dto.PedidoInstrumentoDTO;
+import TP3.backReact.entities.dto.PedidosPorMesAnioDTO;
 import TP3.backReact.repository.PedidoRepository;
 import jakarta.transaction.Transactional;
 import org.apache.poi.ss.usermodel.Cell;
@@ -34,11 +35,6 @@ public class PedidoService implements  IPedidoService{
         }
         return pedidoRepository.save(pedido);
     }
-
-//    public List<Pedido> pedidosPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin){
-//
-//        return pedidoRepository.findPedidosEntreFechas(fechaInicio,fechaFin);
-//    }
 
     @Override
     public Workbook imprimirExcelPedidos(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
@@ -94,7 +90,6 @@ public class PedidoService implements  IPedidoService{
 
         }
     return wb;
-
     }
 
     public List<List<Object>> getcantidadPedido(){
@@ -108,5 +103,15 @@ public class PedidoService implements  IPedidoService{
         return data;
     }
 
-
+    public List<List<Object>> getPedidosPorMesYAnio(Integer anio) {
+        List<List<Object>> data = new ArrayList<>();
+        String[] nombresMeses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+        data.add(Arrays.asList("Mes", "Pedidos"));
+        List<PedidosPorMesAnioDTO> pedidos = pedidoRepository.countPedidosByYearAndMonth(anio);
+        for (PedidosPorMesAnioDTO pedidosPorMesAnioDTO: pedidos){
+            String mes = nombresMeses[pedidosPorMesAnioDTO.getMonth()-1];
+            data.add(Arrays.asList(mes,pedidosPorMesAnioDTO.getCount()));
+        }
+        return data;
+    }
 }

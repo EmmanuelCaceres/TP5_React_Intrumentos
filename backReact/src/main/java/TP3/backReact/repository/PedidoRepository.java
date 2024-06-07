@@ -3,6 +3,7 @@ package TP3.backReact.repository;
 import TP3.backReact.entities.Instrumento;
 import TP3.backReact.entities.Pedido;
 import TP3.backReact.entities.dto.PedidoInstrumentoDTO;
+import TP3.backReact.entities.dto.PedidosPorMesAnioDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +24,11 @@ public interface PedidoRepository extends JpaRepository<Pedido,Integer> {
             "FROM Pedido p JOIN p.detallesPedido dp JOIN dp.instrumento i " +
             "GROUP BY i.id, i.instrumento")
     List<PedidoInstrumentoDTO> findCantidadPedidosAgrupadosPorInstrumento();
+
+    @Query("SELECT new TP3.backReact.entities.dto.PedidosPorMesAnioDTO(MONTH(p.fechaActual), COUNT(p)) " +
+            "FROM Pedido p " +
+            "WHERE YEAR(p.fechaActual) = :anio " +
+            "GROUP BY YEAR(p.fechaActual), MONTH(p.fechaActual) " +
+            "ORDER BY YEAR(p.fechaActual), MONTH(p.fechaActual)")
+    List<PedidosPorMesAnioDTO> countPedidosByYearAndMonth(@Param("anio") Integer anio);
 }

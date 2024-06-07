@@ -14,7 +14,7 @@ function ItemCarrito(props: { item: PedidoDetalle }) {
             {/* <span>{props.item.cantidad}</span> */}
             <span>
                 <img width={50} height={50}
-                    src={`src/assets/img/${props.item.instrumento.imagen}`}
+                    src={`http://localhost:8080/images/${props.item.instrumento.imagen}`}
                     alt={props.item.instrumento.instrumento}
                 />
                 <div>

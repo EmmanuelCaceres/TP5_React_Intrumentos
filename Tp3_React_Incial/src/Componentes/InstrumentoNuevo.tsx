@@ -2,17 +2,36 @@ import Instrumento from '../Entities/Intrumento';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Categoria from '../Entities/Categoria';
-import { getAll, postData, getInstrumentoById, putData } from '../Functions/FunctionsApi';
+import { getAll, postData, getInstrumentoById, putData, postImagen } from '../Functions/FunctionsApi';
 import NavBar from './NavBar';
 import '../index.css'
 
 
 export default function InstrumentoNuevo() {
   const { id } = useParams();
-
   const [categoria, setCategoria] = useState<Categoria[]>([]);
-
   const [instrumento, setInstrumento] = useState<Instrumento>(new Instrumento());
+
+  const handleFilesChange = async (event) => {
+    const formData = new FormData();
+        const file = event.target.files?.[0];
+    
+        if (!file) {
+            console.log("No file selected");
+            return;
+        }
+    
+        formData.append("file", file);
+        console.log(formData);
+    
+        const result = await postImagen("http://localhost:8080/imagen/save",formData);
+        console.log(result);
+        setInstrumento({
+          ...instrumento,
+          imagen: String(result)
+        });
+  };
+
 
   const getAllCategories = async () => {
     const result = await getAll<Categoria[]>("http://localhost:8080/categorias")
@@ -54,6 +73,7 @@ export default function InstrumentoNuevo() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let result = null;
+    console.log(instrumento);
     if (instrumento.id == 0) {
       result = await postData<Instrumento>("http://localhost:8080/instrumento/save", instrumento);
     } else {
@@ -78,10 +98,16 @@ export default function InstrumentoNuevo() {
             <p>Modelo:</p>
             <input type="text" name="modelo" defaultValue={instrumento?.modelo} onChange={handleChange} />
           </label>
-          {/* <label>
+          <label>
           Imagen:
-          <input type="text" name="imagen" defaultValue={instrumento?.imagen} onChange={handleChange} />
-        </label> */}
+          <input
+          color="primary"
+          accept="image/*"
+          type="file"
+          onChange={handleFilesChange}
+          id="icon-button-file"
+        />
+        </label>
           <div style={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
             <label>
               <p>Precio:</p>

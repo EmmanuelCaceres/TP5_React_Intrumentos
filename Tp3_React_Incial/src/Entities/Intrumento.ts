@@ -1,5 +1,4 @@
 import Categoria from "./Categoria";
-import PedidoDetalle from "./PedidoDetalle";
 
 export default class Instrumento{
     id?:number=0;
@@ -11,6 +10,7 @@ export default class Instrumento{
     costoEnvio:string='';
     cantidadVendida:string='';
     descripcion:string='';
+    activo:boolean=true;
     categoria?:Categoria;
 
 }

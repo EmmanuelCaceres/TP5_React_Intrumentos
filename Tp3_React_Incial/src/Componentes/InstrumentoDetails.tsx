@@ -23,7 +23,7 @@ function InstrumentoDetails(){
         <NavBar/>
         <div className='detalleContainer'>
             <div className='mainDetalle'>
-                <img width={240} height={240} src={`../src/assets/img/${instrumento?.imagen}`} alt={String(instrumento?.id)} />
+                <img width={240} height={240} src={`http://localhost:8080/images/${instrumento?.imagen}`} alt={String(instrumento?.id)} />
                 <div className='titleInformacion'>
                   <p>Descripción:</p>
                   <p>{instrumento?.descripcion}</p>
